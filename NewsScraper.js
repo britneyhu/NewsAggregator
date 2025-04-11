@@ -1,25 +1,20 @@
-const { chromium } = require("playwright");
+const axios = require('axios');
 
-async function scrape(page) {
-    console.log("hello world");
+const apiKey = '80a19c30b708487baab04dcaa502d3e4';
+const url = `https://newsapi.org/v2/top-headlines/sources?apiKey=${apiKey}`;
+
+
+async function getNewsArticles(){
+    const response = await axios.get(url);
+    const articles = response.data.sources;
+
+    for(let article of articles){
+        console.log(article.name);
+        console.log(article.description);
+        console.log(article.url);
+    }
 }
 
-async function newsScraper() {
-    let urls = ["https://www.reuters.com/", "https://www.bbc.com/"];
-
-    let tasks = urls.map(async (url)=>{
-        const browser = await chromium.launch({ headless: false });
-        const context = await browser.newContext();
-        const page = await context.newPage();
-        await page.goto(url);
-        scrape(page);
-        await browser.close();
-    });
-
-    await Promise.all(tasks);
-
-}
-
-(async () => {
-  await newsScraper();
+(async()=>{
+    await getNewsArticles();
 })();

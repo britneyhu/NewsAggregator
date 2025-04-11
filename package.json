@@ -1,14 +1,5 @@
 {
-  "name": "news-scraper",
-  "version": "1.0.0",
-  "description": "Web scraper that gathers the latest news",
-  "main": "NewsScraper.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@playwright/test": "^1.51.1",
-    "@types/node": "^22.14.0"
+  "dependencies": {
+    "axios": "^1.8.4"
   }
 }
