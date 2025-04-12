@@ -1,20 +1,14 @@
-const axios = require('axios');
+const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI('80a19c30b708487baab04dcaa502d3e4');
 
-const apiKey = '80a19c30b708487baab04dcaa502d3e4';
-const url = `https://newsapi.org/v2/top-headlines/sources?apiKey=${apiKey}`;
+// To query top headlines
+// All options passed to topHeadlines are optional, but you need to include at least one of them
+newsapi.v2.topHeadlines({
+    sources: 'bbc-news, nbc-news, cnn, google-news, abc-news',
+    language: 'en',
+    pageSize: 20
+  }).then(response => {
+    console.log(response);
 
-
-async function getNewsArticles(){
-    const response = await axios.get(url);
-    const articles = response.data.sources;
-
-    for(let article of articles){
-        console.log(article.name);
-        console.log(article.description);
-        console.log(article.url);
-    }
-}
-
-(async()=>{
-    await getNewsArticles();
-})();
+    //push each object into database
+  });
