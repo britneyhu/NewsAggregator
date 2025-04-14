@@ -35,6 +35,7 @@ async function updateMongo(){
     await col.deleteMany({});
 
     const articles = await getArticles();
+    // console.log(articles);
     await col.insertMany(articles);
   }
   catch(err){
