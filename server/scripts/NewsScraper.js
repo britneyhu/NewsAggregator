@@ -15,20 +15,30 @@ async function getArticles(){
   return articles.articles;
 } 
 
-//creates mongoAtlas client
-const client = new MongoClient(url, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
+async function connectMongo(){
+  //creates mongoAtlas client
+  const client = new MongoClient(url, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });
+
+  try{
+    await client.connect();
+    return client;
   }
-});
+  catch(err){
+    console.log(err);
+  }
+}
 
 //delete previous articles updates database with new articles
 async function updateMongo(){
-  try{
-    await client.connect();
+  const client = await connectMongo();
 
+  try{
     const db = client.db("News");
     const col = db.collection("Articles");
 
@@ -46,4 +56,24 @@ async function updateMongo(){
   }
 }
 
-updateMongo();
+//returns query results from mongo
+async function queryMongo(){
+  const client = await connectMongo();
+
+  try{
+    const db = client.db("News");
+    const col = db.collection("Articles");
+
+    const result = await col.find({}).toArray();
+
+    return result;
+  }
+  catch(err){
+    console.log(err);
+  }
+  finally{
+    await client.close();
+  }
+}
+
+module.exports = {updateMongo, queryMongo};
