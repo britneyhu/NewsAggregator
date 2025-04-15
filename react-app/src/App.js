@@ -215,8 +215,10 @@ const testArticles = [
 
 
 function App() {
-  const handleUpdate = ()=>{
-    console.log("clicked");
+  const handleUpdate = async ()=>{
+    const res = await fetch("http://localhost:5000/news/update");
+    const data = await res.json();
+    console.log(data);
   }
 
   return(
