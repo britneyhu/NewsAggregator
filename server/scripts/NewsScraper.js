@@ -76,4 +76,11 @@ async function queryMongo(){
   }
 }
 
+//testing
+// (async ()=> {
+//   await updateMongo();
+//   const result = await queryMongo();
+//   console.log(result);
+// })();
+
 module.exports = {updateMongo, queryMongo};
