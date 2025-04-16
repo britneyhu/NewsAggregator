@@ -1,4 +1,4 @@
-function Button({Text, onSelect}){
+function Button({text, onSelect}){
     return(
     <button 
         type="button" 

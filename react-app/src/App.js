@@ -2,6 +2,7 @@ import './App.css';
 import React, {useState, useEffect} from "react";
 import Button from "./components/Button";
 import NewsCard from "./components/NewsCard";
+import NavBar from "./components/NavBar";
 
 
 function App() {
@@ -14,13 +15,18 @@ function App() {
     setArticles(data);
   }
 
+  const handleSearchSubmit = (Input)=>{
+    console.log("Input:", Input);
+  };
+
   useEffect(() =>{
     handleUpdate();
   }, []);
 
   return(
     <div>
-      <div><Button Text="Button" onSelect = {handleUpdate} /></div>
+      <div><NavBar handleSubmit = {handleSearchSubmit} /></div>
+      <div><Button Text="Update" onSelect = {handleUpdate} /></div>
       <div><NewsCard articles = {articles} /></div>
     </div>
   );
