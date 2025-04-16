@@ -8,7 +8,6 @@ import NavBar from "./components/NavBar";
 function App() {
   const [articles, setArticles] = useState([]);
 
-  //fetches articles from mongodb
   const handleUpdate = async ()=>{
     const RESPONSE = await fetch("http://localhost:5000/landingPage");
     const DATA = await RESPONSE.json();
@@ -24,6 +23,8 @@ function App() {
       body: JSON.stringify({input})
     });
 
+    input = "";
+
     const DATA = await RESPONSE.json();
     setArticles(DATA);
 
@@ -35,7 +36,7 @@ function App() {
 
   return(
     <div>
-      <div><NavBar handleSubmit = {handleSearchSubmit} /></div>
+      <div><NavBar handleSubmit = {handleSearchSubmit} handleHomeClick={handleUpdate} /></div>
       <div><NewsCard articles = {articles} /></div>
     </div>
   );

@@ -1,24 +1,25 @@
 import {useState} from "react";
 
-function NavBar({handleSubmit}){
+function NavBar({handleSubmit, handleHomeClick}){
     const [input, setInput] = useState("");
 
     const handleInputChange = (event)=>{
         setInput(event.target.value);
     };
 
-    const handleSearchSubmit = ()=>{
+    const handleSearchSubmit = (event)=>{
         handleSubmit(input);
+        setInput("");
     }
 
     return (
         <nav className="navbar bg-body-tertiary">
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
-                    <img src="\logo192.png" alt="Logo" width="30" height="24" className="d-inline-block align-text-top"/>
+                    <img src="\logo192.png" alt="Logo" width="30" height="24" className="d-inline-block align-text-top" onClick = {handleHomeClick}/>
                     News Aggregator
                 </a>
-                <form className="d-flex" role="search">
+                <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>
                     <input 
                         className="form-control me-2" 
                         type="search" 
@@ -29,8 +30,7 @@ function NavBar({handleSubmit}){
                     />
                     <button 
                         className="btn btn-outline-success" 
-                        type="button" 
-                        onClick = {handleSearchSubmit}
+                        type="submit" 
                         >Search</button>
                 </form>
             </div>
