@@ -2,12 +2,12 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const PORT = 5000;
-const newsRoute = require("./routes/news");
+const landingPage = require("./routes/landingPage");
 
 app.use(express.json());
 app.use(cors());
 
-app.use("/news/update", newsRoute);
+app.use("/landingPage", landingPage);
 
 //starts express server
 app.listen(PORT, () => {

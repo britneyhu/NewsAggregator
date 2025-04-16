@@ -5,18 +5,26 @@ const {MongoClient, ServerApiVersion} = require('mongodb');
 const url = "mongodb+srv://britneyhu:88888888@newsaggregator.9dqaloe.mongodb.net/?retryWrites=true&w=majority&appName=NewsAggregator";
 
 //retrieves articles from newsapi
-async function getArticles(){
+async function getTopHeadlines(){
   const articles = await newsapi.v2.topHeadlines({
-    sources: 'bbc-news, nbc-news, cnn, google-news, abc-news',
-    language: 'en',
-    pageSize: 20
+    language: "en"
   });
 
   return articles.articles;
 } 
 
+async function getFromKeyword(keyword){
+  const articles = await newsapi.v2.everything({
+    q: keyword,
+    language: 'en',
+    sortBy: 'relevancy'
+  });
+
+  return articles.articles;
+}
+
+//connects to mongodb
 async function connectMongo(){
-  //creates mongoAtlas client
   const client = new MongoClient(url, {
     serverApi: {
       version: ServerApiVersion.v1,
@@ -76,11 +84,10 @@ async function queryMongo(){
   }
 }
 
-//testing
+// testing
 // (async ()=> {
-//   await updateMongo();
-//   const result = await queryMongo();
+//   const result = await getTopHeadlines();
 //   console.log(result);
 // })();
 
-module.exports = {updateMongo, queryMongo};
+module.exports = {getTopHeadlines, getFromKeyword};

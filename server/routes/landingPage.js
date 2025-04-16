@@ -4,8 +4,7 @@ const router = express.Router();
 const newsScraper = require("../scripts/NewsScraper");
 
 router.get("/", async (req, res) => {
-    await newsScraper.updateMongo();
-    const results = await newsScraper.queryMongo();
+    const results = await newsScraper.getTopHeadlines();
     res.json(results);
 })
 
