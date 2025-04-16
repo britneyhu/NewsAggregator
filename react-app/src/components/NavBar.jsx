@@ -13,7 +13,7 @@ function NavBar({handleSubmit, handleHomeClick}){
     }
 
     return (
-        <nav className="navbar bg-body-tertiary pb-2 pt-2 mb-5 ms-2 me-2">
+        <nav className="navbar bg-body-tertiary pb-2 pt-2 ms-2 me-2">
             <div className="container-fluid d-flex">
                 <a className="navbar-brand d-flex align-items-center" href="#">
                     <img src="\newspaperIcon.png" alt="Logo" width="100" height="100" className="d-inline-block me-4" onClick = {handleHomeClick}/>

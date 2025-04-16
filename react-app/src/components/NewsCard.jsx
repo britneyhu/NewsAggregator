@@ -1,4 +1,5 @@
 function NewsCard({articles}){
+    
     const formatDate = (timestamp) =>{
         const date = new Date(timestamp);
         const year = date.getFullYear();
