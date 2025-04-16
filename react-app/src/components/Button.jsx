@@ -7,7 +7,7 @@ function Button({text, onSelect}){
             onSelect();
         }}
     
-    >{Text}</button>
+    >{text}</button>
 );
 }
 

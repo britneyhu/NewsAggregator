@@ -10,13 +10,13 @@ function App() {
 
   //fetches articles from mongodb
   const handleUpdate = async ()=>{
-    const res = await fetch("http://localhost:5000/news/update");
-    const data = await res.json();
-    setArticles(data);
+    const RESULT = await fetch("http://localhost:5000/news/update");
+    const DATA = await RESULT.json();
+    setArticles(DATA);
   }
 
-  const handleSearchSubmit = (Input)=>{
-    console.log("Input:", Input);
+  const handleSearchSubmit = (input)=>{
+    console.log("Input:", input);
   };
 
   useEffect(() =>{
@@ -26,7 +26,7 @@ function App() {
   return(
     <div>
       <div><NavBar handleSubmit = {handleSearchSubmit} /></div>
-      <div><Button Text="Update" onSelect = {handleUpdate} /></div>
+      <div><Button text="Update" onSelect = {handleUpdate} /></div>
       <div><NewsCard articles = {articles} /></div>
     </div>
   );

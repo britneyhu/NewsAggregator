@@ -1,14 +1,14 @@
 import {useState} from "react";
 
 function NavBar({handleSubmit}){
-    const [Input, setInput] = useState("");
+    const [input, setInput] = useState("");
 
     const handleInputChange = (event)=>{
         setInput(event.target.value);
     };
 
-    const handleSearchSubmit = (event)=>{
-        handleSubmit(Input)
+    const handleSearchSubmit = ()=>{
+        handleSubmit(input);
     }
 
     return (
@@ -24,7 +24,7 @@ function NavBar({handleSubmit}){
                         type="search" 
                         placeholder="Search a topic..." 
                         aria-label="Search"
-                        value = {Input}
+                        value = {input}
                         onChange = {handleInputChange}
                     />
                     <button 
