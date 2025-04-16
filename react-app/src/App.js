@@ -10,13 +10,23 @@ function App() {
 
   //fetches articles from mongodb
   const handleUpdate = async ()=>{
-    const RESULT = await fetch("http://localhost:5000/news/update");
-    const DATA = await RESULT.json();
+    const RESPONSE = await fetch("http://localhost:5000/landingPage");
+    const DATA = await RESPONSE.json();
     setArticles(DATA);
   }
 
-  const handleSearchSubmit = (input)=>{
-    console.log("Input:", input);
+  const handleSearchSubmit = async (input)=>{
+    const RESPONSE = await fetch("http://localhost:5000/searchResult", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({input})
+    });
+
+    const DATA = await RESPONSE.json();
+    setArticles(DATA);
+
   };
 
   useEffect(() =>{
@@ -26,7 +36,6 @@ function App() {
   return(
     <div>
       <div><NavBar handleSubmit = {handleSearchSubmit} /></div>
-      <div><Button text="Update" onSelect = {handleUpdate} /></div>
       <div><NewsCard articles = {articles} /></div>
     </div>
   );

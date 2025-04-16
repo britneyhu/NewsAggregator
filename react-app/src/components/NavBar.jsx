@@ -30,7 +30,7 @@ function NavBar({handleSubmit}){
                     <button 
                         className="btn btn-outline-success" 
                         type="button" 
-                        onClick={handleSearchSubmit}
+                        onClick = {handleSearchSubmit}
                         >Search</button>
                 </form>
             </div>
