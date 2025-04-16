@@ -36,9 +36,18 @@ function App() {
 
   return(
     <div>
-      <div><NavBar handleSubmit = {handleSearchSubmit} handleHomeClick={handleUpdate} /></div>
-      <div><NewsCard articles = {articles} /></div>
+      <div class="sticky-top"><NavBar handleSubmit = {handleSearchSubmit} handleHomeClick={handleUpdate} /></div>
+
+      <div class="container px-4 text-center">
+        <div class="row gx-5">
+          <div class="col">
+            <div><NewsCard articles = {articles} /></div>
+          </div>
+        </div>
+      </div>
     </div>
+
+
   );
 }
 
