@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const newsScraper = require("../scripts/NewsScraper");
+const newsApi = require("../scripts/newsApi");
 
 router.get("/", async (req, res) => {
-    const results = await newsScraper.getTopHeadlines();
+    const results = await newsApi.getTopHeadlines();
     res.json(results);
 })
 

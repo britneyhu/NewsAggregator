@@ -1,27 +1,5 @@
-const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI('80a19c30b708487baab04dcaa502d3e4');
-
 const {MongoClient, ServerApiVersion} = require('mongodb');
 const url = "mongodb+srv://britneyhu:88888888@newsaggregator.9dqaloe.mongodb.net/?retryWrites=true&w=majority&appName=NewsAggregator";
-
-//retrieves articles from newsapi
-async function getTopHeadlines(){
-  const articles = await newsapi.v2.topHeadlines({
-    language: "en"
-  });
-
-  return articles.articles;
-} 
-
-async function getFromKeyword(keyword){
-  const articles = await newsapi.v2.everything({
-    q: keyword,
-    language: 'en',
-    sortBy: 'relevancy'
-  });
-
-  return articles.articles;
-}
 
 //connects to mongodb
 async function connectMongo(){
@@ -43,7 +21,7 @@ async function connectMongo(){
 }
 
 //delete previous articles updates database with new articles
-async function updateMongo(){
+async function updateMongo(articles){
   const client = await connectMongo();
 
   try{
@@ -51,9 +29,6 @@ async function updateMongo(){
     const col = db.collection("Articles");
 
     await col.deleteMany({});
-
-    const articles = await getArticles();
-    // console.log(articles);
     await col.insertMany(articles);
   }
   catch(err){
@@ -62,6 +37,30 @@ async function updateMongo(){
   finally{
     await client.close();
   }
+}
+
+async function sortMongo(option){
+    const client = await connectMongo();
+
+    try{
+        const db = client.db("News");
+        const col = db.collection("Articles");
+
+        if(await col.countDocuments() === 0) throw new Error("No articles to sort");
+
+        let result = [];
+
+        if(option == "publishedAt") result = await col.find({}).sort({[option]: -1}).toArray();
+        else result = await col.find({}).sort({[option]: 1}).toArray();
+
+        return result;
+    }
+    catch(error){
+        console.log(error);
+    }
+    finally{
+        await client.close();
+    }
 }
 
 //returns query results from mongo
@@ -86,8 +85,8 @@ async function queryMongo(){
 
 // testing
 // (async ()=> {
-//   const result = await getTopHeadlines();
+//   const result = await sortMongo("source.name");
 //   console.log(result);
 // })();
 
-module.exports = {getTopHeadlines, getFromKeyword};
+module.exports = {updateMongo, sortMongo, queryMongo};
