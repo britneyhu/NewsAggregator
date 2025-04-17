@@ -1,2 +1,2 @@
 # NewsAggregator
-Web scraper that gathers the latest news
+Website that aggregates all the latest news from many sources
