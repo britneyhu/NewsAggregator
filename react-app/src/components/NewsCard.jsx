@@ -1,5 +1,5 @@
 function NewsCard({articles}){
-    
+
     const formatDate = (timestamp) =>{
         const date = new Date(timestamp);
         const year = date.getFullYear();
@@ -13,8 +13,10 @@ function NewsCard({articles}){
 
     return (
         <div className="row row-cols-1 row-cols-md-2 g-4">
-            {articles.map((article) =>(
-                <div className="col">
+            {articles.length === 0 ?(
+                <p>No Articles to Display</p>
+            ) : (articles.map((article, index) =>(
+                <div key={index} className="col">
                     <div className="card h-100">
                         <img src={article.urlToImage} className="card-img-top" alt="..."/>
                         <div className="card-body">
@@ -22,13 +24,13 @@ function NewsCard({articles}){
                             <p className="card-text">{article.description}</p>
                         </div>
                         <div className="card-footer d-flex align-items-center justify-content-center gap-5">
-                            <a href={article.url} style={{fontWeight: "bold" }} class="card-link">{article.source.name}</a>
+                            <a href={article.url} style={{fontWeight: "bold" }} className="card-link">{article.source.name}</a>
                             <div className="d-inline">{formatDate(article.publishedAt)}</div>
-                            <a href={article.url} class="card-link">Read More</a>
+                            <a href={article.url} className="card-link">Read More</a>
                         </div>
                     </div>
                 </div>
-            ))}  
+            )))}  
         </div>
     );
 }

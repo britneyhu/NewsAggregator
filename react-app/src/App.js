@@ -25,11 +25,14 @@ function App() {
       body: JSON.stringify({input})
     });
 
-    input = "";
-
     const DATA = await RESPONSE.json();
+    
     setArticles(DATA);
 
+  };
+
+  const handleSort = async (option)=>{
+    console.log(`Selected: ${option}`);
   };
 
   useEffect(() =>{
@@ -44,7 +47,7 @@ function App() {
           <Filters/>
         </div>
         <div className="position-absolute end-0 translate-middle-y me-4">
-          <SortSelector titleText="Sort by"/>
+          <SortSelector titleText="Sort by" options={["Most recent", "Relevancy", "Source", "Alphabetical"]} handleSort={handleSort}/>
         </div>
       </div>
       <div className="container px-4 text-center">

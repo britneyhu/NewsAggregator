@@ -1,10 +1,21 @@
-function SortSelector({titleText}){
+import {useState} from "react";
+
+function SortSelector({titleText, options, handleSort}){
+    const [selectedOption, setSelectedOption] = useState("");
+
+    const handleChange = (event)=>{
+        const value = event.target.value;
+        if(value == "Sort by") return;
+        setSelectedOption(value);
+        handleSort(value);
+    }
+
     return(
-        <select class="form-select w-auto" aria-label="Sort Selector">
+        <select className="form-select w-auto" onChange={handleChange} value={selectedOption}>
             <option selected>{titleText}</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            {options.map((option)=>(
+                <option>{option}</option>
+            ))}
         </select>
     );
 }
