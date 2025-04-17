@@ -8,6 +8,10 @@ function NavBar({handleSubmit, handleHomeClick}){
     };
 
     const handleSearchSubmit = (event)=>{
+        if(input.trim().length === 0){
+            setInput("");
+            return;
+        }
         handleSubmit(input);
         setInput("");
     }

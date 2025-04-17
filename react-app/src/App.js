@@ -32,7 +32,17 @@ function App() {
   };
 
   const handleSort = async (option)=>{
-    console.log(`Selected: ${option}`);
+    const RESPONSE = await fetch("http://localhost:5000/sortArticles", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({option})
+    });
+
+    const DATA = await RESPONSE.json();
+    
+    setArticles(DATA);
   };
 
   useEffect(() =>{
@@ -47,7 +57,7 @@ function App() {
           <Filters/>
         </div>
         <div className="position-absolute end-0 translate-middle-y me-4">
-          <SortSelector titleText="Sort by" options={["Most recent", "Relevancy", "Source", "Alphabetical"]} handleSort={handleSort}/>
+          <SortSelector titleText="Sort by" options={["Most recent", "Source", "Alphabetical"]} handleSort={handleSort}/>
         </div>
       </div>
       <div className="container px-4 text-center">
