@@ -1,6 +1,6 @@
 import './App.css';
 import React, {useState, useEffect} from "react";
-import Button from "./components/Button";
+import BackButton from "./components/BackButton";
 import NewsCard from "./components/NewsCard";
 import NavBar from "./components/NavBar";
 import Filters from "./components/Filters";
@@ -60,7 +60,7 @@ function App() {
           <SortSelector titleText="Sort by" options={["Most recent", "Source", "Alphabetical"]} handleSort={handleSort}/>
         </div>
       </div>
-      <div><Button text="Back To Top" /></div>
+      <div className="back-to-top-button"><BackButton text="Back To Top" /></div>
       <div className="container px-4 text-center">
         <div className="row gx-5">
           <div className="col">
