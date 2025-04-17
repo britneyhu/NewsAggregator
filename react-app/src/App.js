@@ -41,7 +41,7 @@ function App() {
     });
 
     const DATA = await RESPONSE.json();
-    
+
     setArticles(DATA);
   };
 
@@ -60,6 +60,7 @@ function App() {
           <SortSelector titleText="Sort by" options={["Most recent", "Source", "Alphabetical"]} handleSort={handleSort}/>
         </div>
       </div>
+      <div><Button text="Back To Top" /></div>
       <div className="container px-4 text-center">
         <div className="row gx-5">
           <div className="col">
