@@ -9,6 +9,7 @@ async function getTopHeadlines(){
     language: "en"
   });
 
+  await mongo.updateMongo(articles.articles);
   return articles.articles;
 } 
 
