@@ -1,77 +1,21 @@
 import './App.css';
-import React, {useState, useEffect} from "react";
-import BackButton from "./components/BackButton";
-import NewsCard from "./components/NewsCard";
-import NavBar from "./components/NavBar";
-import Filters from "./components/Filters";
-import SortSelector from './components/SortSelector';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from 'react-router-dom';
+
+import Home from './pages/Home';
 
 
 function App() {
-  const [articles, setArticles] = useState([]);
-
-  const handleUpdate = async ()=>{
-    const RESPONSE = await fetch("http://localhost:5000/landingPage");
-    const DATA = await RESPONSE.json();
-    setArticles(DATA);
-  }
-
-  const handleSearchSubmit = async (input)=>{
-    const RESPONSE = await fetch("http://localhost:5000/searchResult", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({input})
-    });
-
-    const DATA = await RESPONSE.json();
-    
-    setArticles(DATA);
-
-  };
-
-  const handleSort = async (option)=>{
-    const RESPONSE = await fetch("http://localhost:5000/sortArticles", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({option})
-    });
-
-    const DATA = await RESPONSE.json();
-
-    setArticles(DATA);
-  };
-
-  useEffect(() =>{
-    handleUpdate();
-  }, []);
-
-  return(
-    <div>
-      <div className="sticky-top"><NavBar handleSubmit = {handleSearchSubmit} handleHomeClick={handleUpdate} /></div>
-      <div className="position-relative pt-4 pb-4">
-        <div className="position-absolute start-50 translate-middle-x" style={{ top: '35%' }}>
-          <Filters/>
-        </div>
-        <div className="position-absolute end-0 translate-middle-y me-4">
-          <SortSelector titleText="Sort by" options={["Most recent", "Source", "Alphabetical"]} handleSort={handleSort}/>
-        </div>
-      </div>
-      <div className="back-to-top-button"><BackButton text="Back To Top" /></div>
-      <div className="container px-4 text-center">
-        <div className="row gx-5">
-          <div className="col">
-            <div><NewsCard articles = {articles} /></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-  );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+      </Routes>
+    </Router>
+  )
 }
 
 export default App;

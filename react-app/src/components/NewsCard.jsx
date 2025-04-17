@@ -18,7 +18,7 @@ function NewsCard({articles}){
             ) : (articles.map((article, index) =>(
                 <div key={index} className="col">
                     <div className="card h-100">
-                        <img src={article.urlToImage} className="card-img-top" alt="..."/>
+                        <img src={article.urlToImage || "/placeholderImage.png"} className="card-img-top" onError={(e)=>{e.target.onerror=null; e.target.src="/placeholderImage.png"}}/>
                         <div className="card-body">
                             <h5 className="card-title">{article.title}</h5>
                             <p className="card-text">{article.description}</p>

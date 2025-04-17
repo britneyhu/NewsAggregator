@@ -12,7 +12,7 @@ function SortSelector({titleText, options, handleSort}){
 
     return(
         <select className="form-select w-auto" onChange={handleChange} value={selectedOption}>
-            <option selected>{titleText}</option>
+            <option>{titleText}</option>
             {options.map((option, index)=>(
                 <option key={index}>{option}</option>
             ))}
