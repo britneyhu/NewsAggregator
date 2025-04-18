@@ -9,6 +9,7 @@ function Home(){
     const [articles, setArticles] = useState([]);
     const [pageTitle, setPageTitle] = useState("");
     const [filters, setFilters] = useState({'BBC News': true, 'ABC News': true});
+    const [sortOption, setSortOption] = useState("");
 
     const sources = ["BBC News", "ABC News"];
 
@@ -35,6 +36,8 @@ function Home(){
     };
 
     const handleSort = async (option)=>{
+        setSortOption(option);
+
         const RESPONSE = await fetch("http://localhost:5000/sortArticles", {
             method: "POST",
             headers: {
@@ -62,21 +65,21 @@ function Home(){
 
 //handle filter updates here because of asyncronous setState
     useEffect(()=>{
-        const filterRequestHelper = async (filters)=>{
+        const filterRequestHelper = async (filters, sortOption)=>{
             const RESPONSE = await fetch("http://localhost:5000/updateFilter", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({filters})
+                body: JSON.stringify({filters, sortOption})
             });
 
             const DATA = await RESPONSE.json();
             setArticles(DATA);
         }
 
-        console.log(filters);
-        filterRequestHelper(filters);
+        // console.log(filters, sortOption);
+        filterRequestHelper(filters, sortOption);
 
     }, [filters]);
 
@@ -97,7 +100,7 @@ function Home(){
                 </div>
                 <div className="col-4">
                     <div className="d-flex justify-content-end">
-                        <SortSelector titleText="Sort by" options={["Most recent", "Source", "Alphabetical"]} handleSort={handleSort}/>
+                        <SortSelector titleText="Sort by" options={["Most recent", "Source", "Alphabetical"]} handleSort={handleSort} currentOption={sortOption}/>
                     </div>
                 </div>
             </div>

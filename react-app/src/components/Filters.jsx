@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 
-function Filters({filters, filterUpdate}){
+function Filters({filters, filterUpdate, currentFilters}){
 
     const handleFilterChange = (event)=>{
         filterUpdate(event);
@@ -16,7 +16,7 @@ function Filters({filters, filterUpdate}){
                 {filters.map((filter, index)=>(
                     <li key={index}>
                         <div className="form-check form-switch form-check-inline">
-                            <input className="form-check-input" type="checkbox" role="switch" id={filter} checked={true} onChange={handleFilterChange}/>
+                            <input className="form-check-input" type="checkbox" role="switch" id={filter} checked={currentFilters[filter]} onChange={handleFilterChange}/>
                             <label className="form-check-label" htmlFor={`${index}`}>{filter}</label>
                         </div>
                     </li>
