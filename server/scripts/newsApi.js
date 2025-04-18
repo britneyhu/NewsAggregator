@@ -27,8 +27,11 @@ async function getFromKeyword(keyword){
 
 // testing
 // (async ()=> {
-//   const result = await getFromKeyword("trump");
-//   console.log(result);
+// //   const result = await getFromKeyword("trump");
+// //   console.log(result);
+//     const result = await newsapi.v2.sources({language:'en'});
+//     const sourceNames = result.sources.map((source) => source.name);
+//     console.log(sourceNames);
 // })();
 
 module.exports = {getTopHeadlines, getFromKeyword};
