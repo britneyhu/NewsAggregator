@@ -8,6 +8,9 @@ import SortSelector from '../components/SortSelector';
 function Home(){
     const [articles, setArticles] = useState([]);
     const [pageTitle, setPageTitle] = useState("");
+    const [filters, setFilters] = useState({'Source': false, 'Date': false});
+
+    const sources = ["Source", "Date"];
 
     const handleUpdate = async ()=>{
         const RESPONSE = await fetch("http://localhost:5000/landingPage");
@@ -45,9 +48,22 @@ function Home(){
         setArticles(DATA);
     };
 
+    const handleFilterUpdate = (event)=>{
+        const {checked, id} = event.target;
+        console.log(checked, id);
+        setFilters((prev)=>({
+            ...prev,
+            [id]: checked
+        }));
+    }
+
     useEffect(() => {
         handleUpdate();
     }, []);
+
+    useEffect(()=>{
+        console.log(filters);
+    }, [filters]);
 
     return(
         <div>
@@ -61,7 +77,7 @@ function Home(){
                 </div>
                 <div className="col-4">
                     <div className="d-flex justify-content-center">
-                        <Filters filters={["Source", "Date"]}/>
+                        <Filters filters={sources} filterUpdate={handleFilterUpdate} currentFilters={filters}/>
                     </div>
                 </div>
                 <div className="col-4">
