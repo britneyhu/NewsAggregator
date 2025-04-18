@@ -52,15 +52,23 @@ function Home(){
     return(
         <div>
           <div className="sticky-top"><NavBar handleSubmit = {handleSearchSubmit} handleHomeClick={handleUpdate} /></div>
-          <div className="position-relative pt-4 pb-4">
-            <div className="ms-3" style={{ top: '35%', left: '50%'}}>
-                {pageTitle}
-            </div>
-            <div className="position-absolute start-50 translate-middle-x" style={{ top: '35%' }}>
-              <Filters/>
-            </div>
-            <div className="position-absolute end-0 translate-middle-y me-4">
-              <SortSelector titleText="Sort by" options={["Most recent", "Source", "Alphabetical"]} handleSort={handleSort}/>
+          <div className="container-fluid position-relative pt-4 pb-4">
+            <div className="row">
+                <div className="col-4">
+                    <div className="d-flex justify-content-start">
+                        {pageTitle}
+                    </div>
+                </div>
+                <div className="col-4">
+                    <div className="d-flex justify-content-center">
+                        <Filters filters={["Source", "Date"]}/>
+                    </div>
+                </div>
+                <div className="col-4">
+                    <div className="d-flex justify-content-end">
+                        <SortSelector titleText="Sort by" options={["Most recent", "Source", "Alphabetical"]} handleSort={handleSort}/>
+                    </div>
+                </div>
             </div>
           </div>
           <div className="back-to-top-button"><BackButton text="Back To Top" /></div>
