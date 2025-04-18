@@ -16,7 +16,7 @@ function Filters({filters, filterUpdate}){
                 {filters.map((filter, index)=>(
                     <li key={index}>
                         <div className="form-check form-switch form-check-inline">
-                            <input className="form-check-input" type="checkbox" role="switch" id={filter} onChange={handleFilterChange}/>
+                            <input className="form-check-input" type="checkbox" role="switch" id={filter} checked={true} onChange={handleFilterChange}/>
                             <label className="form-check-label" htmlFor={`${index}`}>{filter}</label>
                         </div>
                     </li>

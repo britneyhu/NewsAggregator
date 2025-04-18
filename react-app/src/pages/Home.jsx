@@ -8,9 +8,9 @@ import SortSelector from '../components/SortSelector';
 function Home(){
     const [articles, setArticles] = useState([]);
     const [pageTitle, setPageTitle] = useState("");
-    const [filters, setFilters] = useState({'Source': false, 'Date': false});
+    const [filters, setFilters] = useState({'BBC News': true, 'ABC News': true});
 
-    const sources = ["Source", "Date"];
+    const sources = ["BBC News", "ABC News"];
 
     const handleUpdate = async ()=>{
         const RESPONSE = await fetch("http://localhost:5000/landingPage");
@@ -50,7 +50,6 @@ function Home(){
 
     const handleFilterUpdate = (event)=>{
         const {checked, id} = event.target;
-        console.log(checked, id);
         setFilters((prev)=>({
             ...prev,
             [id]: checked
@@ -61,8 +60,24 @@ function Home(){
         handleUpdate();
     }, []);
 
+//handle filter updates here because of asyncronous setState
     useEffect(()=>{
+        const filterRequestHelper = async (filters)=>{
+            const RESPONSE = await fetch("http://localhost:5000/updateFilter", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({filters})
+            });
+
+            const DATA = await RESPONSE.json();
+            setArticles(DATA);
+        }
+
         console.log(filters);
+        filterRequestHelper(filters);
+
     }, [filters]);
 
     return(
