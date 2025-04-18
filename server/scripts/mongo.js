@@ -64,23 +64,27 @@ async function sortMongo(option){
 }
 
 //returns query results from mongo
-async function queryMongo(){
-  const client = await connectMongo();
+async function filterMongo(filters){
+    const client = await connectMongo();
 
-  try{
+    try{
     const db = client.db("News");
     const col = db.collection("Articles");
 
-    const result = await col.find({}).toArray();
+    const result = await col.find({
+        "source.name": {$in: filters}
+    }).toArray();
+
+    console.log(result);
 
     return result;
-  }
-  catch(err){
+    }
+    catch(err){
     console.log(err);
-  }
-  finally{
+    }
+    finally{
     await client.close();
-  }
+    }
 }
 
 // testing
@@ -89,4 +93,4 @@ async function queryMongo(){
 //   console.log(result);
 // })();
 
-module.exports = {updateMongo, sortMongo, queryMongo};
+module.exports = {updateMongo, sortMongo, filterMongo};
