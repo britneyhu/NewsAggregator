@@ -64,23 +64,34 @@ async function sortMongo(option){
 }
 
 //returns query results from mongo
-async function filterMongo(filters){
+async function filterMongo(filters, sortOption){
     const client = await connectMongo();
+    let result;
 
     try{
     const db = client.db("News");
     const col = db.collection("Articles");
 
-    const result = await col.find({
-        "source.name": {$in: filters}
-    }).toArray();
-
-    console.log(result);
+    if(sortOption == ""){
+        result = await col.find({
+            "source.name": {$in: filters}
+        }).toArray();
+    }
+    else if(sortOption == "publishedAt"){
+        result = await col.find({
+            "source.name": {$in: filters}
+        }).sort({[sortOption]: -1}).toArray();
+    }
+    else{
+        result = await col.find({
+            "source.name": {$in: filters}
+        }).sort({[sortOption]: 1}).toArray();
+    }
 
     return result;
     }
     catch(err){
-    console.log(err);
+        console.log(err);
     }
     finally{
     await client.close();
