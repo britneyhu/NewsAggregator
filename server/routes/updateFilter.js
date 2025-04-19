@@ -6,9 +6,9 @@ const mongo = require("../scripts/mongo");
 router.post("/", async (req, res) => {
     let {filters, sortOption} = req.body;
 
-    str = Object.entries(filters).filter(([key,value])=>value).map(([key])=>key);
+    filters = Object.entries(filters).filter(([key,value])=>value).map(([key])=>key);
 
-    const results = await mongo.filterMongo(str, sortOption);
+    const results = await mongo.queryMongo(sortOption, filters);
     // console.log(str, sortOption);
     // console.log(results);
     res.json(results);

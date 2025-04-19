@@ -29,7 +29,8 @@ async function updateMongo(articles){
     const col = db.collection("Articles");
 
     await col.deleteMany({});
-    await col.insertMany(articles);
+    const res = await col.insertMany(articles);
+
   }
   catch(err){
     console.log(err);
@@ -39,56 +40,44 @@ async function updateMongo(articles){
   }
 }
 
-async function sortMongo(option){
+async function queryMongo(sortOption, filters){
     const client = await connectMongo();
+    let result = [];
 
     try{
         const db = client.db("News");
         const col = db.collection("Articles");
 
-        if(await col.countDocuments() === 0) throw new Error("No articles to sort");
-
-        let result = [];
-
-        if(option == "publishedAt") result = await col.find({}).sort({[option]: -1}).toArray();
-        else result = await col.find({}).sort({[option]: 1}).toArray();
+        if(!filters){
+            if(sortOption == ""){
+                result = await col.find({}).toArray();
+            }
+            else if(sortOption == "publishedAt"){
+                result = await col.find({}).sort({[sortOption]: -1}).toArray();
+            }
+            else{
+                result = await col.find({}).sort({[sortOption]: 1}).toArray();
+            }
+        }
+        else{
+            if(sortOption == ""){
+                result = await col.find({
+                    "source.name": {$in: filters}
+                }).toArray();
+            }
+            else if(sortOption == "publishedAt"){
+                result = await col.find({
+                    "source.name": {$in: filters}
+                }).sort({[sortOption]: -1}).toArray();
+            }
+            else{
+                result = await col.find({
+                    "source.name": {$in: filters}
+                }).sort({[sortOption]: 1}).toArray();
+            }
+        }
 
         return result;
-    }
-    catch(error){
-        console.log(error);
-    }
-    finally{
-        await client.close();
-    }
-}
-
-//returns query results from mongo
-async function filterMongo(filters, sortOption){
-    const client = await connectMongo();
-    let result;
-
-    try{
-    const db = client.db("News");
-    const col = db.collection("Articles");
-
-    if(sortOption == ""){
-        result = await col.find({
-            "source.name": {$in: filters}
-        }).toArray();
-    }
-    else if(sortOption == "publishedAt"){
-        result = await col.find({
-            "source.name": {$in: filters}
-        }).sort({[sortOption]: -1}).toArray();
-    }
-    else{
-        result = await col.find({
-            "source.name": {$in: filters}
-        }).sort({[sortOption]: 1}).toArray();
-    }
-
-    return result;
     }
     catch(err){
         console.log(err);
@@ -104,4 +93,4 @@ async function filterMongo(filters, sortOption){
 //   console.log(result);
 // })();
 
-module.exports = {updateMongo, sortMongo, filterMongo};
+module.exports = {updateMongo, queryMongo};
