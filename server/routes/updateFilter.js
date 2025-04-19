@@ -4,13 +4,19 @@ const router = express.Router();
 const mongo = require("../scripts/mongo");
 
 router.post("/", async (req, res) => {
-    let {filters, sortOption} = req.body;
+    let {sortOption, filters} = req.body;
+    console.log(`From: Server, Received filter request from react (sortOption=${sortOption}, filters=${filters})`);
 
-    filters = Object.entries(filters).filter(([key,value])=>value).map(([key])=>key);
+    if(sortOption === "Most recent") sortOption = "publishedAt";
+    else if(sortOption === "Source") sortOption = "source.name";
+    else if(sortOption == "Alphabetical") sortOption = "title";
+    else sortOption = "";
+
+    if(filters) filters = Object.entries(filters).filter(([key,value])=>value).map(([key])=>key);
 
     const results = await mongo.queryMongo(sortOption, filters);
-    // console.log(str, sortOption);
-    // console.log(results);
+    console.log(`From: Server, Filter request completed (filteredArticles=${results.length}`)
+
     res.json(results);
 })
 

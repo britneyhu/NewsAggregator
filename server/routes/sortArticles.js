@@ -7,6 +7,11 @@ router.post("/", async (req, res) => {
     let {sortOption, filters} = req.body;
     console.log(`From: Server, Received sort request from react (sortOption=${sortOption}, filters=${filters})`);
 
+    if(sortOption === "Most recent") sortOption = "publishedAt";
+    else if(sortOption === "Source") sortOption = "source.name";
+    else if(sortOption == "Alphabetical") sortOption = "title";
+    else sortOption = "";
+    
     if(filters) filters = Object.entries(filters).filter(([key,value])=>value).map(([key])=>key);
 
     const results = await mongo.queryMongo(sortOption, filters);

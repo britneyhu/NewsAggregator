@@ -5,8 +5,13 @@ const newsApi = require("../scripts/newsApi");
 const mongo = require("../scripts/mongo");
 
 router.post("/", async (req, res) => {
-    const {keyword, sortOption, filters} = req.body;
+    let {keyword, sortOption, filters} = req.body;
     console.log(`From: Server, Received search request from react (keyword=${keyword} sortOption=${sortOption}, filters=${filters})`)
+
+    if(sortOption === "Most recent") sortOption = "publishedAt";
+    else if(sortOption === "Source") sortOption = "source.name";
+    else if(sortOption == "Alphabetical") sortOption = "title";
+    else sortOption = "";
 
     if(filters) filters = Object.entries(filters).filter(([key,value])=>value).map(([key])=>key);
 
