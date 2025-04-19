@@ -8,10 +8,22 @@ import SortSelector from '../components/SortSelector';
 function Home(){
     const [articles, setArticles] = useState([]);
     const [pageTitle, setPageTitle] = useState("");
-    const [filters, setFilters] = useState({'BBC News': true, 'ABC News': true});
+    const [filters, setFilters] = useState({"ABC News":true,"ABC News (AU)":true,"Al Jazeera English":true,"Ars Technica":true,"Associated Press":true,"Australian Financial Review":true,"Axios":true,"BBC News":true,"BBC Sport":true,"Bleacher Report":true,"Bloomberg":true,"Breitbart News":true,"Business Insider":true,"Buzzfeed":true,"CBC News":true,"CBS News":true,"CNN":true,"Crypto Coins News":true,"Engadget":true,"Entertainment Weekly":true,"ESPN":true,"ESPN Cric Info":true,"Financial Post":true,"Football Italia":true,"Fortune":true,"FourFourTwo":true,"Fox News":true,"Fox Sports":true,"Google News":true,"Google News (Australia)":true,"Google News (Canada)":true,"Google News (India)":true,"Google News (UK)":true,"Hacker News":true,"IGN":true,"Independent":true,"Mashable":true,"Medical News Today":true,"MSNBC":true,"MTV News":true,"MTV News (UK)":true,"National Geographic":true,"National Review":true,"NBC News":true,"News24":true,"New Scientist":true,"News.com.au":true,"Newsweek":true,"New York Magazine":true,"Next Big Future":true,"NFL News":true,"NHL News":true,"Politico":true,"Polygon":true,"Recode":true,"Reddit /r/all":true,"Reuters":true,"RTE":true,"TalkSport":true,"TechCrunch":true,"TechRadar":true,"The American Conservative":true,"The Globe And Mail":true,"The Hill":true,"The Hindu":true,"The Huffington Post":true,"The Irish Times":true,"The Jerusalem Post":true,"The Lad Bible":true,"The Next Web":true,"The Sport Bible":true,"The Times of India":true,"The Verge":true,"The Wall Street Journal":true,"The Washington Post":true,"The Washington Times":true,"Time":true,"USA Today":true,"Vice News":true,"Wired":true});
     const [sortOption, setSortOption] = useState("");
 
-    const sources = ["BBC News", "ABC News"];
+    const sources = [
+        'ABC News','ABC News (AU)','Al Jazeera English','Ars Technica','Associated Press','Australian Financial Review',
+        'Axios','BBC News','BBC Sport','Bleacher Report','Bloomberg','Breitbart News','Business Insider','Buzzfeed','CBC News',
+        'CBS News','CNN','Crypto Coins News','Engadget','Entertainment Weekly','ESPN','ESPN Cric Info','Financial Post',
+        'Football Italia','Fortune','FourFourTwo','Fox News','Fox Sports','Google News','Google News (Australia)',
+        'Google News (Canada)','Google News (India)','Google News (UK)','Hacker News','IGN','Independent','Mashable',
+        'Medical News Today','MSNBC','MTV News','MTV News (UK)','National Geographic','National Review','NBC News',
+        'News24','New Scientist','News.com.au','Newsweek','New York Magazine','Next Big Future','NFL News','NHL News','Politico',
+        'Polygon','Recode','Reddit /r/all','Reuters','RTE','TalkSport','TechCrunch','TechRadar','The American Conservative',
+        'The Globe And Mail','The Hill','The Hindu','The Huffington Post','The Irish Times','The Jerusalem Post','The Lad Bible',
+        'The Next Web','The Sport Bible','The Times of India','The Verge','The Wall Street Journal','The Washington Post',
+        'The Washington Times','Time','USA Today','Vice News','Wired'
+    ];
 
     const handleUpdate = async ()=>{
         const RESPONSE = await fetch("http://localhost:5000/landingPage");
@@ -20,16 +32,19 @@ function Home(){
         setPageTitle("Top Headlines");
     }
 
-    const handleSearchSubmit = async (input)=>{
+    const handleSearchSubmit = async (input, sortOption, filters)=>{
+        console.log(`From: React, sending search request to server (keyword=${input}, sortOption=${sortOption}, filters=${filters})`);
         const RESPONSE = await fetch("http://localhost:5000/searchResult", {
             method: "POST",
             headers: {
             "Content-Type": "application/json"
             },
-            body: JSON.stringify({input})
+            body: JSON.stringify({keyword: input, sortOption: sortOption, filters: filters})
         });
 
         const DATA = await RESPONSE.json();
+        console.log(`From: React, received searched articles from server (Data=${DATA.length}`);
+
         setArticles(DATA);
         
         setPageTitle(`Search Results for: ${input}`);
@@ -37,18 +52,6 @@ function Home(){
 
     const handleSort = async (option)=>{
         setSortOption(option);
-
-        const RESPONSE = await fetch("http://localhost:5000/sortArticles", {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json"
-            },
-            body: JSON.stringify({option})
-        });
-
-        const DATA = await RESPONSE.json();
-
-        setArticles(DATA);
     };
 
     const handleFilterUpdate = (event)=>{
@@ -59,9 +62,12 @@ function Home(){
         }));
     }
 
-    useEffect(() => {
-        handleUpdate();
-    }, []);
+    // useEffect(() => {
+    //     handleUpdate();
+    // }, [articles]);
+    // useEffect(()=>{
+    //     console.log(articles);
+    // }, [articles]);
 
 //handle filter updates here because of asyncronous setState
     useEffect(()=>{
@@ -82,6 +88,34 @@ function Home(){
         filterRequestHelper(filters, sortOption);
 
     }, [filters]);
+
+    useEffect(()=>{
+        const sortRequestHelper = async (sortOption, filters)=>{
+            let str = "";
+            if(sortOption === "Most recent") str = "publishedAt";
+            else if(sortOption === "Source") str = "source.name";
+            else if(sortOption == "Alphabetical") str = "title";
+            else return;
+
+            console.log(`From: React, sending sort request to server (sortOption=${str}, filters=${filters})`);
+    
+            const RESPONSE = await fetch("http://localhost:5000/sortArticles", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json"
+                },
+                body: JSON.stringify({sortOption: str, filters: filters})
+            });
+    
+            const DATA = await RESPONSE.json();
+
+            console.log(`From: React, received sorted articles from server (Data=${DATA.length})`);
+    
+            setArticles(DATA);
+        }
+
+        sortRequestHelper(sortOption, filters);
+    }, [sortOption]);
 
     return(
         <div>
