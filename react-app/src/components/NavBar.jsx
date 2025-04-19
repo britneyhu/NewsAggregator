@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function NavBar({handleSubmit, handleHomeClick}){
+function NavBar({handleSubmit, handleHomeClick, sortOption, filters}){
     const [input, setInput] = useState("");
 
     const handleInputChange = (event)=>{
@@ -13,7 +13,7 @@ function NavBar({handleSubmit, handleHomeClick}){
             setInput("");
             return;
         }
-        handleSubmit(input);
+        handleSubmit(input, sortOption, filters);
         setInput("");
     }
 

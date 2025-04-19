@@ -69,42 +69,38 @@ function Home(){
     //     console.log(articles);
     // }, [articles]);
 
-//handle filter updates here because of asyncronous setState
+//handle filter and sort updates here because of asyncronous setState
     useEffect(()=>{
-        const filterRequestHelper = async (filters, sortOption)=>{
+        console.log(`From: React, sending filter request to server (sortOptions=${sortOption}, filters=${filters})`);
+        const filterRequestHelper = async (sortOption, filters)=>{
             const RESPONSE = await fetch("http://localhost:5000/updateFilter", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({filters, sortOption})
+                body: JSON.stringify({sortOption: sortOption, filters: filters})
             });
 
             const DATA = await RESPONSE.json();
+            console.log(`From: React, received filtered articles from server (Data=${DATA.length})`);
+
             setArticles(DATA);
         }
 
-        // console.log(filters, sortOption);
-        filterRequestHelper(filters, sortOption);
+        filterRequestHelper(sortOption, filters);
 
     }, [filters]);
 
     useEffect(()=>{
         const sortRequestHelper = async (sortOption, filters)=>{
-            let str = "";
-            if(sortOption === "Most recent") str = "publishedAt";
-            else if(sortOption === "Source") str = "source.name";
-            else if(sortOption == "Alphabetical") str = "title";
-            else return;
-
-            console.log(`From: React, sending sort request to server (sortOption=${str}, filters=${filters})`);
+            console.log(`From: React, sending sort request to server (sortOption=${sortOption}, filters=${filters})`);
     
             const RESPONSE = await fetch("http://localhost:5000/sortArticles", {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json"
                 },
-                body: JSON.stringify({sortOption: str, filters: filters})
+                body: JSON.stringify({sortOption: sortOption, filters: filters})
             });
     
             const DATA = await RESPONSE.json();
@@ -119,7 +115,7 @@ function Home(){
 
     return(
         <div>
-          <div className="sticky-top"><NavBar handleSubmit = {handleSearchSubmit} handleHomeClick={handleUpdate} /></div>
+          <div className="sticky-top"><NavBar handleSubmit = {handleSearchSubmit} sortOption={sortOption} filters={filters} handleHomeClick={handleUpdate} /></div>
           <div className="container-fluid position-relative pt-4 pb-4">
             <div className="row">
                 <div className="col-4">
