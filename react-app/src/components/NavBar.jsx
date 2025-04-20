@@ -18,13 +18,13 @@ function NavBar({handleSubmit, handleHomeClick, sortOption, filters}){
     }
 
     return (
-        <nav className="navbar bg-body-tertiary pb-2 pt-2">
+        <nav className="navbar bg-body-tertiary custom-navbar pb-2 pt-2">
             <div className="container-fluid d-flex">
                 <a className="navbar-brand d-flex align-items-center" href="#">
                     <img src="\newspaperIcon.png" alt="Logo" width="100" height="100" className="d-inline-block me-4" onClick = {handleHomeClick}/>
                     <div className="ms-3 d-flex flex-column justify-content-center">
-                        <span style={{ fontSize: "2rem", fontWeight: "bold" }}>News</span>
-                        <span style={{ fontSize: "2rem", fontWeight: "bold" }}>Aggregator</span>
+                        <span className="logo-title">News</span>
+                        <span className="logo-title">Aggregator</span>
                     </div>
                     
                 </a>

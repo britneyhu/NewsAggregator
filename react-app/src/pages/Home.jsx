@@ -47,7 +47,7 @@ function Home(){
 
         setArticles(DATA);
         
-        setPageTitle(`Search Results for: ${input}`);
+        setPageTitle(`Results For: ${input}`);
     };
 
     const handleSort = async (option)=>{
@@ -114,23 +114,25 @@ function Home(){
     }, [sortOption]);
 
     return(
-        <div>
-          <div className="sticky-top"><NavBar handleSubmit = {handleSearchSubmit} sortOption={sortOption} filters={filters} handleHomeClick={handleUpdate} /></div>
+        <div className="home-body">
+          <nav className="sticky-top"><NavBar handleSubmit = {handleSearchSubmit} sortOption={sortOption} filters={filters} handleHomeClick={handleUpdate} /></nav>
           <div className="container-fluid position-relative pt-4 pb-4">
             <div className="row">
-                <div className="col-4">
+                <div className="col-6">
                     <div className="d-flex justify-content-start">
-                        {pageTitle}
+                        <div className="page-title">
+                            {pageTitle}
+                        </div>
                     </div>
                 </div>
-                <div className="col-4">
-                    <div className="d-flex justify-content-center">
-                        <Filters filters={sources} filterUpdate={handleFilterUpdate} currentFilters={filters}/>
-                    </div>
-                </div>
-                <div className="col-4">
+                <div className="col-6">
                     <div className="d-flex justify-content-end">
-                        <SortSelector titleText="Sort by" options={["Most recent", "Source", "Alphabetical"]} handleSort={handleSort} currentOption={sortOption}/>
+                        <div className="pe-2">
+                            <Filters filters={sources} filterUpdate={handleFilterUpdate} currentFilters={filters}/>
+                        </div>
+                        <div>
+                            <SortSelector titleText="Sort by" options={["Most recent", "Source", "Alphabetical"]} handleSort={handleSort} currentOption={sortOption}/>
+                        </div>
                     </div>
                 </div>
             </div>

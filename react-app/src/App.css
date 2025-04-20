@@ -1,3 +1,18 @@
+.home-body {
+  background-color: rgba(72, 47, 162, 1);
+}
+
+.custom-navbar {
+  background-color: rgba(50, 50, 50, 1) !important;
+}
+
+.logo-title {
+  font-size: 3rem;
+  font-family: 'Inter';
+  font-weight: bolder;
+  color: aliceblue;
+}
+
 .back-to-top-button {
   position: fixed;
   bottom: 20px;
@@ -13,4 +28,13 @@
 .dropdown-menu {
   font-size: 1rem;
   padding: 0.1rem 15rem;
+  min-width: 400px;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-family: 'Inter';
+  font-weight: bold;
+  font-style: italic;
+  color: aliceblue;
 }
