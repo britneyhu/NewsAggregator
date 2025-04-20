@@ -38,3 +38,41 @@
   font-style: italic;
   color: aliceblue;
 }
+
+.sort-button {
+  background-color: aliceblue;
+  color: rgba(50, 50, 50, 1);
+  font-family: 'Inter';
+  font-weight: bold;
+  border: none;
+}
+
+.filter-button {
+  background-color: aliceblue !important;
+  color: rgba(50, 50, 50, 1);
+  font-family: 'Inter';
+  font-weight: bold;
+  border: none;
+}
+
+.filter-button:hover {
+  background-color: rgba(50, 50, 50, 1) !important;
+  color: aliceblue !important;
+}
+
+.filter-button.show {
+  background-color: rgba(50, 50, 50, 1) !important;
+  color: aliceblue !important;
+}
+
+.back-button {
+  background-color: rgba(50, 50, 50, 1) !important;
+  color: aliceblue !important;
+  font-family: 'Inter';
+  border: none;
+}
+
+.back-button:hover {
+  background-color: aliceblue !important;
+  color: rgba(50, 50, 50, 1) !important;
+}

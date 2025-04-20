@@ -30,7 +30,7 @@ function BackButton({text}){
         isVisible && (
             <button 
                 type="button" 
-                className="btn btn-primary"
+                className="btn btn-primary back-button"
                 onClick={scrollToTop}
             
             >{text}</button>

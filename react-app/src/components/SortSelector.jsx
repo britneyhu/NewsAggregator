@@ -8,7 +8,7 @@ function SortSelector({titleText, options, handleSort, currentOption}){
     }
 
     return(
-        <select className="form-select w-auto" onChange={handleChange} value={currentOption}>
+        <select className="form-select w-auto sort-button" onChange={handleChange} value={currentOption}>
             <option>{titleText}</option>
             {options.map((option, index)=>(
                 <option key={index}>{option}</option>

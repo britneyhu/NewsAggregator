@@ -8,8 +8,8 @@ function Filters({filters, filterUpdate, currentFilters}){
 
     return(
         <div className="dropdown">
-            <button className="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Filter Sources
+            <button className="btn btn-primary dropdown-toggle filter-button" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Filter
             </button>
 
             <ul className="dropdown-menu w-100 p-3">
