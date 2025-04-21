@@ -9,7 +9,7 @@ function Filters({filters, filterUpdate, currentFilters}){
     return(
         <div className="dropdown">
             <button className="btn btn-primary dropdown-toggle filter-button" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Filter
+                Filters
             </button>
 
             <ul className="dropdown-menu filter-menu w-100 p-3">

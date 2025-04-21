@@ -30,7 +30,7 @@ function NavBar({handleSubmit, handleHomeClick, sortOption, filters}){
                 </a>
                 <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>
                     <input 
-                        className="form-control me-2" 
+                        className="form-control search-box me-2" 
                         type="search" 
                         placeholder="Search a topic..." 
                         aria-label="Search"
@@ -38,7 +38,7 @@ function NavBar({handleSubmit, handleHomeClick, sortOption, filters}){
                         onChange = {handleInputChange}
                     />
                     <button 
-                        className="btn btn-outline-success" 
+                        className="btn btn-outline-success search-button" 
                         type="submit" 
                         >Search</button>
                 </form>

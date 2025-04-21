@@ -83,6 +83,23 @@
   color: aliceblue !important;
 }
 
+.search-box {
+  font-family: 'Inter';
+}
+
+.search-box:focus {
+  border-color: rgba(102, 70, 219, 1);
+  box-shadow: none;
+}
+
+.search-button {
+  background-color: rgba(102, 70, 219, 1);
+  color: aliceblue;
+  font-family: 'Inter';
+  font-weight: bold;
+  border: none;
+}
+
 .back-button {
   background-color: rgba(50, 50, 50, 1) !important;
   color: aliceblue !important;
