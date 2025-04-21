@@ -12,7 +12,7 @@ function Filters({filters, filterUpdate, currentFilters}){
                 Filter
             </button>
 
-            <ul className="dropdown-menu w-100 p-3">
+            <ul className="dropdown-menu filter-menu w-100 p-3">
                 <div className="container-fluid">
                     <div className="row">
                         {filters.map((filter, index)=>(

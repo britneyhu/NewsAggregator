@@ -25,7 +25,7 @@
   padding: 0.1rem 15rem;
 }
 
-.dropdown-menu {
+.filter-menu {
   font-size: 1rem;
   padding: 0.1rem 15rem;
   min-width: 400px;
@@ -45,6 +45,24 @@
   font-family: 'Inter';
   font-weight: bold;
   border: none;
+}
+
+.sort-button:hover {
+  background-color: rgba(50, 50, 50, 1) !important;
+  color: aliceblue !important;
+}
+
+.sort-button.show {
+  background-color: rgba(50, 50, 50, 1) !important;
+  color: aliceblue !important;
+}
+
+.dropdown-menu li {
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  background-color: lightgray;
 }
 
 .filter-button {
