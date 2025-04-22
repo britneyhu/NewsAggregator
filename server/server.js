@@ -20,6 +20,7 @@ app.use("/sortArticles", sortArticles);
 app.use("/updateFilter", updateFilter);
 
 cron.schedule('0 6 * * *', async()=>{
+    console.log("Getting today's top headlines");
     try{
         newsApi.getTopHeadlines();
     }

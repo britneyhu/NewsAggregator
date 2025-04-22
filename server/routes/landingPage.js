@@ -6,7 +6,7 @@ const mongo = require("../scripts/mongo");
 router.get("/", async (req, res) => {
     console.log(`From: Server, Received home click request from react`);
     const results = await mongo.queryMongo("Top-Headlines", "", false);
-    console.log(`From: Server, home click request completed (topHeadlines=${results})`);
+    console.log(`From: Server, home click request completed (topHeadlines=${results.length})`);
 
     res.json(results);
 })
