@@ -136,7 +136,7 @@ function Home(){
             <div className="row">
                 <div className="col-6">
                     <div className="d-flex justify-content-start">
-                        <div className="page-title">
+                        <div className="page-title ps-3">
                             {pageTitle}
                         </div>
                     </div>
