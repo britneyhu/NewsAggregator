@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
     if(filters) filters = Object.entries(filters).filter(([key,value])=>value).map(([key])=>key);
 
     await newsApi.getFromKeyword(keyword);
-    results = await mongo.queryMongo(sortOption, filters);
+    results = await mongo.queryMongo("Articles", sortOption, filters);
     console.log(`From: Server, Search request completed (searchedArticles=${results.length})`);
 
     res.json(results);

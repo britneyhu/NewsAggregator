@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const newsApi = require("../scripts/newsApi");
+const mongo = require("../scripts/mongo");
 
 router.get("/", async (req, res) => {
-    const results = await newsApi.getTopHeadlines();
+    console.log(`From: Server, Received home click request from react`);
+    const results = await mongo.queryMongo("Top-Headlines", "", false);
+    console.log(`From: Server, home click request completed (topHeadlines=${results})`);
+
     res.json(results);
 })
 

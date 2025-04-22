@@ -9,8 +9,7 @@ async function getTopHeadlines(){
     language: "en"
   });
 
-  await mongo.updateMongo(articles.articles);
-  return articles.articles;
+  await mongo.updateMongo("Top-Headlines", articles.articles);
 } 
 
 //retrieves articles given keyword newsapi, updates mongodb, returns articles from mongodb
@@ -21,7 +20,7 @@ async function getFromKeyword(keyword){
     sortBy: 'relevancy'
   });
 
-  await mongo.updateMongo(articles.articles);
+  await mongo.updateMongo("Articles", articles.articles);
   return articles.articles;
 }
 

@@ -21,15 +21,15 @@ async function connectMongo(){
 }
 
 //delete previous articles updates database with new articles
-async function updateMongo(articles){
+async function updateMongo(collection, articles){
   const client = await connectMongo();
 
   try{
     const db = client.db("News");
-    const col = db.collection("Articles");
+    const col = db.collection(collection);
 
     await col.deleteMany({});
-    const res = await col.insertMany(articles);
+    await col.insertMany(articles);
 
   }
   catch(err){
@@ -40,13 +40,13 @@ async function updateMongo(articles){
   }
 }
 
-async function queryMongo(sortOption, filters){
+async function queryMongo(collection, sortOption, filters){
     const client = await connectMongo();
     let result = [];
 
     try{
         const db = client.db("News");
-        const col = db.collection("Articles");
+        const col = db.collection(collection);
 
         if(!filters){
             if(sortOption == ""){

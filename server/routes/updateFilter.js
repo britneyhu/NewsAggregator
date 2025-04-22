@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
 
     if(filters) filters = Object.entries(filters).filter(([key,value])=>value).map(([key])=>key);
 
-    const results = await mongo.queryMongo(sortOption, filters);
+    const results = await mongo.queryMongo("Articles", sortOption, filters);
     console.log(`From: Server, Filter request completed (filteredArticles=${results.length}`)
 
     res.json(results);
