@@ -7,9 +7,10 @@ import SortSelector from '../components/SortSelector';
 
 function Home(){
     const [articles, setArticles] = useState([]);
-    const [pageTitle, setPageTitle] = useState("");
+    const [pageTitle, setPageTitle] = useState("Latest News");
     const [filters, setFilters] = useState({"ABC News":true,"ABC News (AU)":true,"Al Jazeera English":true,"Ars Technica":true,"Associated Press":true,"Australian Financial Review":true,"Axios":true,"BBC News":true,"BBC Sport":true,"Bleacher Report":true,"Bloomberg":true,"Breitbart News":true,"Business Insider":true,"Buzzfeed":true,"CBC News":true,"CBS News":true,"CNN":true,"Crypto Coins News":true,"Engadget":true,"Entertainment Weekly":true,"ESPN":true,"ESPN Cric Info":true,"Financial Post":true,"Football Italia":true,"Fortune":true,"FourFourTwo":true,"Fox News":true,"Fox Sports":true,"Google News":true,"Google News (Australia)":true,"Google News (Canada)":true,"Google News (India)":true,"Google News (UK)":true,"Hacker News":true,"IGN":true,"Independent":true,"Mashable":true,"Medical News Today":true,"MSNBC":true,"MTV News":true,"MTV News (UK)":true,"National Geographic":true,"National Review":true,"NBC News":true,"News24":true,"New Scientist":true,"News.com.au":true,"Newsweek":true,"New York Magazine":true,"Next Big Future":true,"NFL News":true,"NHL News":true,"Politico":true,"Polygon":true,"Recode":true,"Reddit /r/all":true,"Reuters":true,"RTE":true,"TalkSport":true,"TechCrunch":true,"TechRadar":true,"The American Conservative":true,"The Globe And Mail":true,"The Hill":true,"The Hindu":true,"The Huffington Post":true,"The Irish Times":true,"The Jerusalem Post":true,"The Lad Bible":true,"The Next Web":true,"The Sport Bible":true,"The Times of India":true,"The Verge":true,"The Wall Street Journal":true,"The Washington Post":true,"The Washington Times":true,"Time":true,"USA Today":true,"Vice News":true,"Wired":true});
     const [sortOption, setSortOption] = useState("");
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const sources = [
         'ABC News','ABC News (AU)','Al Jazeera English','Ars Technica','Associated Press','Australian Financial Review',
@@ -25,11 +26,16 @@ function Home(){
         'The Washington Times','Time','USA Today','Vice News','Wired'
     ];
 
-    const handleUpdate = async ()=>{
+    const handleHomeClick = async ()=>{
+        console.log("From: React, sending home click request to server");
+
         const RESPONSE = await fetch("http://localhost:5000/landingPage");
         const DATA = await RESPONSE.json();
+
+        console.log(`From: React, received top headlines from server (Data=${DATA.length}`);
+
         setArticles(DATA);
-        setPageTitle("Top Headlines");
+        setPageTitle("Latest News");
     }
 
     const handleSearchSubmit = async (input, sortOption, filters)=>{
@@ -69,10 +75,15 @@ function Home(){
     //     console.log(articles);
     // }, [articles]);
 
+    useEffect(()=>{
+        handleHomeClick();
+        setIsLoaded(true);
+    }, []);
+
 //handle filter and sort updates here because of asyncronous setState
     useEffect(()=>{
-        console.log(`From: React, sending filter request to server (sortOptions=${sortOption}, filters=${filters})`);
         const filterRequestHelper = async (sortOption, filters)=>{
+            console.log(`From: React, sending filter request to server (sortOptions=${sortOption}, filters=${filters})`);
             const RESPONSE = await fetch("http://localhost:5000/updateFilter", {
                 method: 'POST',
                 headers: {
@@ -87,7 +98,9 @@ function Home(){
             setArticles(DATA);
         }
 
-        filterRequestHelper(sortOption, filters);
+        if(isLoaded){
+            filterRequestHelper(sortOption, filters);
+        }
 
     }, [filters]);
 
@@ -110,12 +123,15 @@ function Home(){
             setArticles(DATA);
         }
 
-        sortRequestHelper(sortOption, filters);
+        if(isLoaded){
+            sortRequestHelper(sortOption, filters);
+        }
+        
     }, [sortOption]);
 
     return(
         <div className="home-body">
-          <nav className="sticky-top"><NavBar handleSubmit = {handleSearchSubmit} sortOption={sortOption} filters={filters} handleHomeClick={handleUpdate} /></nav>
+          <nav className="sticky-top"><NavBar handleSubmit = {handleSearchSubmit} sortOption={sortOption} filters={filters} handleHomeClick={handleHomeClick} /></nav>
           <div className="container-fluid position-relative pt-4 pb-4">
             <div className="row">
                 <div className="col-6">

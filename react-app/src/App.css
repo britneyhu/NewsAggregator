@@ -1,4 +1,4 @@
-.home-body {
+html body {
   background-color: rgba(72, 47, 162, 1);
 }
 
@@ -101,8 +101,8 @@
 }
 
 .back-button {
-  background-color: rgba(50, 50, 50, 1) !important;
-  color: aliceblue !important;
+  background-color: aliceblue !important;
+  color: rgba(50, 50, 50, 1) !important;
   font-family: 'Inter';
   border: none;
 }
@@ -130,4 +130,19 @@
 .news-card-footer a {
   background-color: rgba(34, 34, 34, 1);
   color: rgba(176, 154, 255, 1);
+}
+
+.news-card-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.news-card-text {
+  font-size: 1rem;
+}
+
+.no-articles-text {
+  font-family: 'Inter';
+  font-size: 3rem;
+  color: aliceblue;
 }

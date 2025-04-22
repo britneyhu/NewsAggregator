@@ -12,11 +12,11 @@ function SortSelector({titleText, options, handleSort, currentOption}){
     }
 
     return(
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle sort-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle sort-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {currentOption || titleText}
             </button>
-            <ul class="dropdown-menu">
+            <ul className="dropdown-menu">
                     {options.map((option, index)=>(
                         <li className="dropdown-item" href="#!" key={index} onClick={()=> handleChange(option)}>
                             {option}
