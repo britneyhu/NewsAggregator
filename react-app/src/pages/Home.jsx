@@ -87,8 +87,8 @@ function Home(){
     //Handle filter and sort updates here because of asyncronous setState
     //Fetch articles when the filters are updated
     useEffect(()=>{
-        const filterRequestHelper = async (sortOption, filters)=>{
-            console.log(`From: React, sending filter request to server (sortOptions=${sortOption}, filters=${filters})`);
+        const sortAndFilterRequestHelper = async (sortOption, filters)=>{
+            console.log(`From: React, sending sort/filter request to server (sortOptions=${sortOption}, filters=${filters})`);
             const RESPONSE = await fetch("http://localhost:5000/sortAndFilter", {
                 method: 'POST',
                 headers: {
@@ -98,42 +98,16 @@ function Home(){
             });
 
             const DATA = await RESPONSE.json();
-            console.log(`From: React, received filtered articles from server (Data=${DATA.length})`);
+            console.log(`From: React, received sorted/filtered articles from server (Data=${DATA.length})`);
 
             setArticles(DATA);
         }
 
         if(isLoaded){
-            filterRequestHelper(sortOption, filters);
+            sortAndFilterRequestHelper(sortOption, filters);
         }
 
-    }, [filters]);
-
-    //Fetch articles when the sort option is updated
-    useEffect(()=>{
-        const sortRequestHelper = async (sortOption, filters)=>{
-            console.log(`From: React, sending sort request to server (sortOption=${sortOption}, filters=${filters})`);
-    
-            const RESPONSE = await fetch("http://localhost:5000/sortAndFilter", {
-                method: "POST",
-                headers: {
-                "Content-Type": "application/json"
-                },
-                body: JSON.stringify({sortOption: sortOption, filters: filters})
-            });
-    
-            const DATA = await RESPONSE.json();
-
-            console.log(`From: React, received sorted articles from server (Data=${DATA.length})`);
-    
-            setArticles(DATA);
-        }
-
-        if(isLoaded){
-            sortRequestHelper(sortOption, filters);
-        }
-        
-    }, [sortOption]);
+    }, [sortOption, filters, isLoaded]);
 
     return(
         <div className="home-body">
