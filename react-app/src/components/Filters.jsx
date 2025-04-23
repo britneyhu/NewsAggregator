@@ -1,7 +1,9 @@
-import {useState, useEffect} from 'react';
+//Component for filters
 
+//Component takes filters (arr) for all available filters, filterUpdate (func) to send updated filter to home.jsx, currentFilters (arr) to display current filters' states
 function Filters({filters, filterUpdate, currentFilters}){
 
+    //Sends updated filter to home.jsx
     const handleFilterChange = (event)=>{
         filterUpdate(event);
     }

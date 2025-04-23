@@ -1,13 +1,10 @@
-import {useState} from "react";
+//Component for sort selector
 
+//Component takes a titleText (str) for the default button text, options (arr) for all options to display, handleSort (func) to pass sort option to home.jsx, currentOption(str) to display currently selected option
 function SortSelector({titleText, options, handleSort, currentOption}){
-    const [open, setOpen]  = useState(false);
-
-    const handleToggle = () => setOpen((prev)=> !prev);
-
+    //Sends option to handleSort function in home.jsx
     const handleChange = (option)=>{
         if(option == "Sort by") return;
-        setOpen(false);
         handleSort(option);
     }
 
@@ -24,13 +21,6 @@ function SortSelector({titleText, options, handleSort, currentOption}){
                     ))}
             </ul>
         </div>
-
-        // <select className="form-select w-auto sort-button" onChange={handleChange} value={currentOption}>
-        //     <option>{titleText}</option>
-        //     {options.map((option, index)=>(
-        //         <option key={index}>{option}</option>
-        //     ))}
-        // </select>
     );
 }
 

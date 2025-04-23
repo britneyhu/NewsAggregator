@@ -1,12 +1,17 @@
+//Component for nav bar
+
 import {useState} from "react";
 
+//Component takes handleSubmit (func) to pass search input to home.jsx, handleHomeClick (func) to send load top headlines request to home.jsx, sortOption (arr) for current sortOption, and filters (arr) for current filters
 function NavBar({handleSubmit, handleHomeClick, sortOption, filters}){
     const [input, setInput] = useState("");
 
+    //changes input to what is currently in the search bar
     const handleInputChange = (event)=>{
         setInput(event.target.value);
     };
 
+    //sends current input, sortOption, and filters to home.jsx and sets input to empty string
     const handleSearchSubmit = (event)=>{
         event.preventDefault();
         if(input.trim().length === 0){

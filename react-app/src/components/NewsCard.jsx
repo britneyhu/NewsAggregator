@@ -1,5 +1,9 @@
+//Component for news cards
+
+//Component takes articles (arr) for all the articles to be displayed
 function NewsCard({articles}){
 
+    //Converts timestamp to readable format
     const formatDate = (timestamp) =>{
         const date = new Date(timestamp);
         const year = date.getFullYear();

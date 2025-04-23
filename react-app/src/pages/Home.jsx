@@ -1,3 +1,5 @@
+//Renders home page elements, sends server requests for articles
+
 import React, {useState, useEffect} from "react";
 import BackButton from "../components/BackButton";
 import NewsCard from "../components/NewsCard";
@@ -26,6 +28,7 @@ function Home(){
         'The Washington Times','Time','USA Today','Vice News','Wired'
     ];
 
+    //Sends request to server for today's top headlines and updates articles and page title
     const handleHomeClick = async ()=>{
         console.log("From: React, sending home click request to server");
 
@@ -38,6 +41,8 @@ function Home(){
         setPageTitle("Latest News");
     }
 
+    //Sends request to server for searched articles
+    //Takes the user input, current sort option, and current filters, then updates articles and page title
     const handleSearchSubmit = async (input, sortOption, filters)=>{
         console.log(`From: React, sending search request to server (keyword=${input}, sortOption=${sortOption}, filters=${filters})`);
         const RESPONSE = await fetch("http://localhost:5000/searchResult", {
@@ -56,35 +61,35 @@ function Home(){
         setPageTitle(`Results For: ${input}`);
     };
 
+    //Passed as a prop to sort selector to set the new selected sort option
     const handleSort = async (option)=>{
         setSortOption(option);
     };
 
+
+    //Passed as a prop to filters to set the new selected filters
     const handleFilterUpdate = (event)=>{
         const {checked, id} = event.target;
+
+        //Sets filter as all previous filters copied and new one updated
         setFilters((prev)=>({
             ...prev,
             [id]: checked
         }));
     }
 
-    // useEffect(() => {
-    //     handleUpdate();
-    // }, [articles]);
-    // useEffect(()=>{
-    //     console.log(articles);
-    // }, [articles]);
-
+    //Fetch articles when the homepage first loads
     useEffect(()=>{
         handleHomeClick();
         setIsLoaded(true);
     }, []);
 
-//handle filter and sort updates here because of asyncronous setState
+    //Handle filter and sort updates here because of asyncronous setState
+    //Fetch articles when the filters are updated
     useEffect(()=>{
         const filterRequestHelper = async (sortOption, filters)=>{
             console.log(`From: React, sending filter request to server (sortOptions=${sortOption}, filters=${filters})`);
-            const RESPONSE = await fetch("http://localhost:5000/updateFilter", {
+            const RESPONSE = await fetch("http://localhost:5000/sortAndFilter", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -104,11 +109,12 @@ function Home(){
 
     }, [filters]);
 
+    //Fetch articles when the sort option is updated
     useEffect(()=>{
         const sortRequestHelper = async (sortOption, filters)=>{
             console.log(`From: React, sending sort request to server (sortOption=${sortOption}, filters=${filters})`);
     
-            const RESPONSE = await fetch("http://localhost:5000/sortArticles", {
+            const RESPONSE = await fetch("http://localhost:5000/sortAndFilter", {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json"
