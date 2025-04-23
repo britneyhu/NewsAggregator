@@ -1,3 +1,5 @@
+//Main entry point for Express server
+
 const express = require("express");
 const cors = require("cors");
 const cron = require('node-cron');
@@ -5,8 +7,7 @@ const newsApi = require("./scripts/newsApi");
 
 const landingPage = require("./routes/landingPage");
 const searchResult = require("./routes/searchResult");
-const sortArticles = require("./routes/sortArticles");
-const updateFilter = require("./routes/updateFilter");
+const sortAndFilter = require("./routes/sortAndFilter");
 
 const app = express();
 const PORT = 5000;
@@ -14,11 +15,12 @@ const PORT = 5000;
 app.use(express.json());
 app.use(cors());
 
+//Defines API routes
 app.use("/landingPage", landingPage);
 app.use("/searchResult", searchResult);
-app.use("/sortArticles", sortArticles);
-app.use("/updateFilter", updateFilter);
+app.use("/sortAndFilter", sortAndFilter);
 
+//Runs scheduled cron job to fetch daily top headlines at 6:00am
 cron.schedule('0 6 * * *', async()=>{
     console.log("Getting today's top headlines");
     try{

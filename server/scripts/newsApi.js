@@ -1,9 +1,10 @@
-const mongo = require("./mongo");
+//Scripts for interacting with NewsAPI
 
+const mongo = require("./mongo");
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI('80a19c30b708487baab04dcaa502d3e4');
 
-//retrieves topheadline articles from newsapi, updates mongodb, returns articles from mongodb
+//Fetches top headlines from NewsAPI, updates mongodb
 async function getTopHeadlines(){
   const articles = await newsapi.v2.topHeadlines({
     language: "en"
@@ -12,7 +13,7 @@ async function getTopHeadlines(){
   await mongo.updateMongo("Top-Headlines", articles.articles);
 } 
 
-//retrieves articles given keyword newsapi, updates mongodb, returns articles from mongodb
+//Fetches articles given a keyword from NewsAPI, updates mongodb, returns articles
 async function getFromKeyword(keyword){
   const articles = await newsapi.v2.everything({
     q: keyword,
@@ -24,7 +25,7 @@ async function getFromKeyword(keyword){
   return articles.articles;
 }
 
-// testing
+// testing function
 // (async ()=> {
 // //   const result = await getFromKeyword("trump");
 // //   console.log(result);

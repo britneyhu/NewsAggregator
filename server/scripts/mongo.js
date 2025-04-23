@@ -1,7 +1,9 @@
+//Scripts for interacting with MongoDB
+
 const {MongoClient, ServerApiVersion} = require('mongodb');
 const url = "mongodb+srv://britneyhu:88888888@newsaggregator.9dqaloe.mongodb.net/?retryWrites=true&w=majority&appName=NewsAggregator";
 
-//connects to mongodb
+//Connects to MongoDB
 async function connectMongo(){
   const client = new MongoClient(url, {
     serverApi: {
@@ -20,7 +22,7 @@ async function connectMongo(){
   }
 }
 
-//delete previous articles updates database with new articles
+//Deletes previous articles in given collection and updates database with new given articles
 async function updateMongo(collection, articles){
   const client = await connectMongo();
 
@@ -40,6 +42,7 @@ async function updateMongo(collection, articles){
   }
 }
 
+//Queries mongo for articles in a given collection, given sort option, and given filters
 async function queryMongo(collection, sortOption, filters){
     const client = await connectMongo();
     let result = [];
@@ -87,7 +90,7 @@ async function queryMongo(collection, sortOption, filters){
     }
 }
 
-// testing
+// testing function
 // (async ()=> {
 //   const result = await sortMongo("source.name");
 //   console.log(result);
