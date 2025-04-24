@@ -14,6 +14,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />}/>
+        <Route path="/NewsAggregator" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   )
