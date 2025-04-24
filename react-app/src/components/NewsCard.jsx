@@ -29,7 +29,7 @@ function NewsCard({articles}){
         ) : (articles.map((article, index) =>(
                 <div key={index} className="col">
                     <div className="card h-100 news-card">
-                        <img src={article.urlToImage || "/placeholderImage.png"} className="card-img-top" onError={(e)=>{e.target.onerror=null; e.target.src="/placeholderImage.png"}}/>
+                        <img src={article.urlToImage || `${process.env.PUBLIC_URL}/placeholderImage.png`} className="card-img-top" onError={(e)=>{e.target.onerror=null; e.target.src="/placeholderImage.png"}}/>
                         <div className="card-body news-card-body">
                             <h5 className="news-card-title">{article.title}</h5>
                             <p className="news-card-text">{article.description}</p>
