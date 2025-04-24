@@ -32,7 +32,7 @@ function Home(){
     const handleHomeClick = async ()=>{
         console.log("From: React, sending home click request to server");
 
-        const RESPONSE = await fetch("http://localhost:5000/landingPage");
+        const RESPONSE = await fetch("https://newsaggregator-y3yc.onrender.com/landingPage");
         const DATA = await RESPONSE.json();
 
         console.log(`From: React, received top headlines from server (Data=${DATA.length}`);
@@ -45,7 +45,7 @@ function Home(){
     //Takes the user input, current sort option, and current filters, then updates articles and page title
     const handleSearchSubmit = async (input, sortOption, filters)=>{
         console.log(`From: React, sending search request to server (keyword=${input}, sortOption=${sortOption}, filters=${filters})`);
-        const RESPONSE = await fetch("http://localhost:5000/searchResult", {
+        const RESPONSE = await fetch("https://newsaggregator-y3yc.onrender.com/searchResult", {
             method: "POST",
             headers: {
             "Content-Type": "application/json"
@@ -89,7 +89,7 @@ function Home(){
     useEffect(()=>{
         const sortAndFilterRequestHelper = async (sortOption, filters)=>{
             console.log(`From: React, sending sort/filter request to server (sortOptions=${sortOption}, filters=${filters})`);
-            const RESPONSE = await fetch("http://localhost:5000/sortAndFilter", {
+            const RESPONSE = await fetch("https://newsaggregator-y3yc.onrender.com/sortAndFilter", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
