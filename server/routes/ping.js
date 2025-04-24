@@ -5,6 +5,7 @@ const router = express.Router();
 
 
 router.get("/", async (req, res) => {
+    console.log("Backend Pinged");
     res.send("Backend Pinged");
 });
 
