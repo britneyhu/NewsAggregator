@@ -31,6 +31,8 @@ cron.schedule('0 6 * * *', async()=>{
     catch(error){
         console.log(error);
     }
+}, {
+    timezone: "America/Los_Angeles"
 });
 
 
