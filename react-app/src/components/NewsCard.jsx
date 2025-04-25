@@ -35,7 +35,7 @@ function NewsCard({articles}){
                             <p className="news-card-text">{article.description}</p>
                         </div>
                         <div className="card-footer d-flex align-items-center justify-content-center gap-5 news-card-footer">
-                            <a href={article.url} style={{fontWeight: "bold" }} className="card-link">{article.source.name}</a>
+                            <a href={article.url} target="_blank" style={{fontWeight: "bold" }} className="card-link">{article.source.name}</a>
                             <div className="d-inline">{formatDate(article.publishedAt)}</div>
                         </div>
                     </div>
