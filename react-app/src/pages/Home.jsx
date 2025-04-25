@@ -46,13 +46,13 @@ function Home(){
     //Sends request to server for searched articles
     //Takes the user input, current sort option, and current filters, then updates articles and page title
     const handleSearchSubmit = async (input, sortOption, filters)=>{
-        console.log(`From: React, sending search request to server (currentCollection=${currentCollection}, keyword=${input}, sortOption=${sortOption}, filters=${filters})`);
+        console.log(`From: React, sending search request to server (keyword=${input}, sortOption=${sortOption}, filters=${filters})`);
         const RESPONSE = await fetch("https://newsaggregator-y3yc.onrender.com/searchResult", {
             method: "POST",
             headers: {
             "Content-Type": "application/json"
             },
-            body: JSON.stringify({collection: currentCollection, keyword: input, sortOption: sortOption, filters: filters})
+            body: JSON.stringify({keyword: input, sortOption: sortOption, filters: filters})
         });
 
         const DATA = await RESPONSE.json();
