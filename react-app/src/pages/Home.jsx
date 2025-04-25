@@ -13,6 +13,7 @@ function Home(){
     const [filters, setFilters] = useState({"ABC News":true,"ABC News (AU)":true,"Al Jazeera English":true,"Ars Technica":true,"Associated Press":true,"Australian Financial Review":true,"Axios":true,"BBC News":true,"BBC Sport":true,"Bleacher Report":true,"Bloomberg":true,"Breitbart News":true,"Business Insider":true,"Buzzfeed":true,"CBC News":true,"CBS News":true,"CNN":true,"Crypto Coins News":true,"Engadget":true,"Entertainment Weekly":true,"ESPN":true,"ESPN Cric Info":true,"Financial Post":true,"Football Italia":true,"Fortune":true,"FourFourTwo":true,"Fox News":true,"Fox Sports":true,"Google News":true,"Google News (Australia)":true,"Google News (Canada)":true,"Google News (India)":true,"Google News (UK)":true,"Hacker News":true,"IGN":true,"Independent":true,"Mashable":true,"Medical News Today":true,"MSNBC":true,"MTV News":true,"MTV News (UK)":true,"National Geographic":true,"National Review":true,"NBC News":true,"News24":true,"New Scientist":true,"News.com.au":true,"Newsweek":true,"New York Magazine":true,"Next Big Future":true,"NFL News":true,"NHL News":true,"Politico":true,"Polygon":true,"Recode":true,"Reddit /r/all":true,"Reuters":true,"RTE":true,"TalkSport":true,"TechCrunch":true,"TechRadar":true,"The American Conservative":true,"The Globe And Mail":true,"The Hill":true,"The Hindu":true,"The Huffington Post":true,"The Irish Times":true,"The Jerusalem Post":true,"The Lad Bible":true,"The Next Web":true,"The Sport Bible":true,"The Times of India":true,"The Verge":true,"The Wall Street Journal":true,"The Washington Post":true,"The Washington Times":true,"Time":true,"USA Today":true,"Vice News":true,"Wired":true});
     const [sortOption, setSortOption] = useState("");
     const [isLoaded, setIsLoaded] = useState(false);
+    const [currentCollection, setCurrentCollection] = useState("Top-Headlines");
 
     const sources = [
         'ABC News','ABC News (AU)','Al Jazeera English','Ars Technica','Associated Press','Australian Financial Review',
@@ -37,6 +38,7 @@ function Home(){
 
         console.log(`From: React, received top headlines from server (Data=${DATA.length}`);
 
+        setCurrentCollection("Top-Headlines");
         setArticles(DATA);
         setPageTitle("Latest News");
     }
@@ -44,13 +46,13 @@ function Home(){
     //Sends request to server for searched articles
     //Takes the user input, current sort option, and current filters, then updates articles and page title
     const handleSearchSubmit = async (input, sortOption, filters)=>{
-        console.log(`From: React, sending search request to server (keyword=${input}, sortOption=${sortOption}, filters=${filters})`);
+        console.log(`From: React, sending search request to server (currentCollection=${currentCollection}, keyword=${input}, sortOption=${sortOption}, filters=${filters})`);
         const RESPONSE = await fetch("https://newsaggregator-y3yc.onrender.com/searchResult", {
             method: "POST",
             headers: {
             "Content-Type": "application/json"
             },
-            body: JSON.stringify({keyword: input, sortOption: sortOption, filters: filters})
+            body: JSON.stringify({collection: currentCollection, keyword: input, sortOption: sortOption, filters: filters})
         });
 
         const DATA = await RESPONSE.json();
@@ -59,6 +61,7 @@ function Home(){
         setArticles(DATA);
         
         setPageTitle(`Results For: ${input}`);
+        setCurrentCollection("Articles");
     };
 
     //Passed as a prop to sort selector to set the new selected sort option
@@ -88,13 +91,13 @@ function Home(){
     //Fetch articles when the filters are updated
     useEffect(()=>{
         const sortAndFilterRequestHelper = async (sortOption, filters)=>{
-            console.log(`From: React, sending sort/filter request to server (sortOptions=${sortOption}, filters=${filters})`);
+            console.log(`From: React, sending sort/filter request to server (currentCollection=${currentCollection}, sortOptions=${sortOption}, filters=${filters})`);
             const RESPONSE = await fetch("https://newsaggregator-y3yc.onrender.com/sortAndFilter", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({sortOption: sortOption, filters: filters})
+                body: JSON.stringify({collection: currentCollection, sortOption: sortOption, filters: filters})
             });
 
             const DATA = await RESPONSE.json();
