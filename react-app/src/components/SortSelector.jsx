@@ -4,7 +4,7 @@
 function SortSelector({titleText, options, handleSort, currentOption}){
     //Sends option to handleSort function in home.jsx
     const handleChange = (option)=>{
-        if(option == "Sort by") return;
+        if(option === "Sort by") return;
         handleSort(option);
     }
 
