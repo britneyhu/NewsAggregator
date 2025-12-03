@@ -8,7 +8,7 @@ const sortOptionName = (sortOptionStr) =>{
 
     if(sortOptionStr === "Most recent") sortOption = "publishedAt";
     else if(sortOptionStr === "Source") sortOption = "source.name";
-    else if(sortOptionStr == "Alphabetical") sortOption = "title";
+    else if(sortOptionStr === "Alphabetical") sortOption = "title";
     else sortOption = "";
 
     return sortOption;
@@ -16,7 +16,7 @@ const sortOptionName = (sortOptionStr) =>{
 
 exports.handler = async(event, context) =>{
     try {
-        const { keyword, sortOption, filters } = JSON.parse(event.body);
+        let { keyword, sortOption, filters } = JSON.parse(event.body);
         console.log(`From: Netlify Function, Received search request from React (keyword=${keyword} sortOption=${sortOption}, filters=${filters})`);
 
         sortOption = sortOptionName(sortOption);
@@ -24,7 +24,7 @@ exports.handler = async(event, context) =>{
         if(filters) filters = Object.entries(filters).filter(([key, value]) => value).map(([key]) => key);
 
         await newsApi.getFromKeyword(keyword);
-        results = await mongo.queryMongo("Articles", sortOption, filters);
+        const results = await mongo.queryMongo("Articles", sortOption, filters);
         console.log(`From: Netlify Function, Search request completed (searchedArticles=${results.length})`);
 
         return {

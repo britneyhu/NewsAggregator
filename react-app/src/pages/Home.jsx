@@ -110,7 +110,7 @@ function Home(){
             sortAndFilterRequestHelper(sortOption, filters);
         }
 
-    }, [sortOption, filters, isLoaded]);
+    }, [sortOption, filters, isLoaded, currentCollection]);
 
     return(
         <div className="home-body">
