@@ -1,7 +1,6 @@
 //Scripts for interacting with MongoDB
 
 const {MongoClient, ServerApiVersion} = require('mongodb');
-const url = "mongodb+srv://britneyhu:88888888@newsaggregator.9dqaloe.mongodb.net/?retryWrites=true&w=majority&appName=NewsAggregator";
 let client;
 
 //Connects to MongoDB
