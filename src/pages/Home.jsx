@@ -31,7 +31,7 @@ function Home(){
 
     //Sends request to server for today's top headlines and updates articles and page title
     const handleHomeClick = async ()=>{
-        console.log("From: React, sending home click request to Netlify Function");
+        // console.log("From: React, sending home click request to Netlify Function");
 
         const RESPONSE = await fetch("/.netlify/functions/landingPage", {
             method: "GET",
@@ -39,7 +39,7 @@ function Home(){
         })
         const DATA = await RESPONSE.json();
 
-        console.log(`From: React, received top headlines from Netlify Function (Data=${DATA.length}`);
+        // console.log(`From: React, received top headlines from Netlify Function (Data=${DATA.length}`);
 
         setCurrentCollection("Top-Headlines");
         setArticles(DATA);
@@ -49,7 +49,7 @@ function Home(){
     //Sends request to server for searched articles
     //Takes the user input, current sort option, and current filters, then updates articles and page title
     const handleSearchSubmit = async (input, sortOption, filters)=>{
-        console.log(`From: React, sending search request to Netlify Function (keyword=${input}, sortOption=${sortOption}, filters=${filters})`);
+        // console.log(`From: React, sending search request to Netlify Function (keyword=${input}, sortOption=${sortOption}, filters=${filters})`);
         const RESPONSE = await fetch("/.netlify/functions/searchResult", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -57,7 +57,7 @@ function Home(){
         });
 
         const DATA = await RESPONSE.json();
-        console.log(`From: React, received searched articles from Netlify Function (Data=${DATA.length}`);
+        // console.log(`From: React, received searched articles from Netlify Function (Data=${DATA.length}`);
 
         setArticles(DATA);
         
@@ -92,7 +92,7 @@ function Home(){
     //Fetch articles when the filters are updated
     useEffect(()=>{
         const sortAndFilterRequestHelper = async (sortOption, filters)=>{
-            console.log(`From: React, sending sort/filter request to Netlify Function (currentCollection=${currentCollection}, sortOptions=${sortOption}, filters=${filters})`);
+            // console.log(`From: React, sending sort/filter request to Netlify Function (currentCollection=${currentCollection}, sortOptions=${sortOption}, filters=${filters})`);
             const RESPONSE = await fetch("/.netlify/functions/sortAndFilter", {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
@@ -100,7 +100,7 @@ function Home(){
             });
 
             const DATA = await RESPONSE.json();
-            console.log(`From: React, received sorted/filtered articles from Netlify Function (Data=${DATA.length})`);
+            // console.log(`From: React, received sorted/filtered articles from Netlify Function (Data=${DATA.length})`);
 
             setArticles(DATA);
         }
