@@ -1,0 +1,7 @@
+[build]
+    publish = "build"
+    functions = "netlify/functions"
+
+[[functions]]
+    schedule = "0 6 * * *"
+    path = "fetchNews"
